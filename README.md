@@ -24,6 +24,15 @@
 
 ## Description
 
+NEST基本腳手架:
+
+* Mysql
+* Sequelize
+* JWT
+* Passport
+* config .env
+* user 基本model及登入驗證
+
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
 ## Installation
