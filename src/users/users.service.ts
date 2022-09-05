@@ -37,10 +37,26 @@ export class UsersService {
     const isMatch = await bcrypt.compare(password, user.password ?? '');
     if (isMatch) {
       const token = await this.generateJWTToken(user);
-      const { password, ...result } = user;
-      return { result, token };
+      const { password, name, email } = user;
+      return {
+        code: 1,
+        user: {
+          name,
+          email,
+          avatar: '',
+          position: '',
+          roles: [],
+          permissions: [],
+          routes: [],
+        },
+        token,
+      };
     }
     return null;
+  }
+
+  async getRoutes() {
+    return [];
   }
 
   async generateJWTToken(user: any) {
