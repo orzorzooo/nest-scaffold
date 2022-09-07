@@ -4,6 +4,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { SequelizeModule } from '@nestjs/sequelize';
+import { PropertyModule } from './property/property.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { SequelizeModule } from '@nestjs/sequelize';
       autoLoadModels: true,
       synchronize: true,
     }),
+    PropertyModule,
   ],
   controllers: [AppController],
   providers: [AppService],
