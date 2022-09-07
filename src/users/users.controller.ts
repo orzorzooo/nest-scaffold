@@ -6,7 +6,11 @@ import {
   Patch,
   Param,
   Delete,
+  Request,
   UseGuards,
+  Head,
+  Header,
+  Headers,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { UsersService } from './users.service';
@@ -43,8 +47,8 @@ export class UsersController {
   }
 
   @UseGuards(AuthGuard('jwt'))
-  @Get('routes')
-  async getRoutes() {
+  @Get('routes/route')
+  getRoutes(@Request() req, @Headers() header) {
     return this.usersService.getRoutes();
   }
 }

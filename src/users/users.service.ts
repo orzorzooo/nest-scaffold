@@ -56,7 +56,11 @@ export class UsersService {
   }
 
   async getRoutes() {
-    return [];
+    return [
+      // {
+      //   router: 'root',
+      // },
+    ];
   }
 
   async generateJWTToken(user: any) {
