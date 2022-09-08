@@ -5,10 +5,15 @@ import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { PropertyModule } from './property/property.module';
-
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 @Module({
   imports: [
     ConfigModule.forRoot(),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'upload'),
+      exclude: ['/api*'],
+    }),
     UsersModule,
     SequelizeModule.forRoot({
       dialect: 'mysql',
