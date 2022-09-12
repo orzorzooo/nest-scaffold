@@ -12,7 +12,7 @@ import { File } from './entities/file.entity';
 @Module({
   imports: [
     MulterModule.register({
-      // 簡易指定存檔路徑 (不建議)
+      // 簡易指定存檔路徑
       // dest: './uplods/',
       storage: diskStorage({
         // destination: `uploads/`,
