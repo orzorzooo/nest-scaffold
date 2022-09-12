@@ -7,6 +7,8 @@ import { SequelizeModule } from '@nestjs/sequelize';
 import { PropertyModule } from './property/property.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { FileModule } from './file/file.module';
+import { File } from './file/entities/file.entity';
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -22,11 +24,12 @@ import { join } from 'path';
       username: `${process.env.DATABASE_USER}`,
       password: `${process.env.DATABASE_PASSWORD}`,
       database: `${process.env.DATABASE}`,
-      models: [],
+      models: [File],
       autoLoadModels: true,
       synchronize: true,
     }),
     PropertyModule,
+    FileModule,
   ],
   controllers: [AppController],
   providers: [AppService],
