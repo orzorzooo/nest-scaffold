@@ -1,58 +1,50 @@
-// import {
-//   AllowNull,
-//   AutoIncrement,
-//   Column,
-//   CreatedAt,
-//   DataType,
-//   Model,
-//   PrimaryKey,
-//   Table,
-//   Unique,
-//   UpdatedAt,
-// } from 'sequelize-typescript';
+import {
+  AllowNull,
+  AutoIncrement,
+  Column,
+  CreatedAt,
+  DataType,
+  Model,
+  PrimaryKey,
+  Table,
+  Unique,
+  UpdatedAt,
+} from 'sequelize-typescript';
 
-// @Table({ timestamps: true })
-// export class Property extends Model<Property>  {
-// 	@PrimaryKey
-//   @AutoIncrement
-//   @Column
-//   id: number;
+@Table({ timestamps: true })
+export class Property extends Model<Property> {
+  @PrimaryKey
+  @AutoIncrement
+  @Column
+  id: number;
 
-// 	@AllowNull(false)
-//   @Column
-//   name: string;
-// }
+  @AllowNull(false)
+  @Column
+  name: string;
 
-// @Table({ timestamps: true })
-// export class User extends Model<User> {
-//   @PrimaryKey
-//   @AutoIncrement
-//   @Column
-//   id: number;
+  @Column
+  category_id: number;
 
-//   @AllowNull(false)
-//   @Column
-//   name: string;
+  @Column
+  description: string;
 
-//   @AllowNull(false)
-//   @Unique
-//   @Column
-//   email: string;
+  @Column({ type: DataType.JSON })
+  spec: string;
 
-//   @AllowNull(false)
-//   @Column
-//   password: string;
+  @Column
+  area_id: number;
 
-//   @Column({ defaultValue: true })
-//   isActive: boolean;
+  @Column
+  address: string;
 
-//   @Column({ type: DataType.JSON })
-//   config: string;
+  @Column
+  locate_id: number;
 
-//   @CreatedAt
-//   created_at: Date;
+  @CreatedAt
+  @Column
+  created_at: Date;
 
-//   @UpdatedAt
-//   @Column
-//   updated_at: Date;
-// }
+  @UpdatedAt
+  @Column
+  updated_at: Date;
+}

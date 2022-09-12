@@ -23,13 +23,6 @@ export class PropertyController {
     return this.propertyService.create(createPropertyDto);
   }
 
-  @Post('upload')
-  @UseInterceptors(FileInterceptor('file'))
-  uploadFile(@UploadedFile() file) {
-    console.log(file);
-    return file;
-  }
-
   @Get()
   findAll() {
     return this.propertyService.findAll();
