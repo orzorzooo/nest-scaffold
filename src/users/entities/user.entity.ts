@@ -38,6 +38,7 @@ export class User extends Model<User> {
   config: string;
 
   @CreatedAt
+  @Column
   created_at: Date;
 
   @UpdatedAt
