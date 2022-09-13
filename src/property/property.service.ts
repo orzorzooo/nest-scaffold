@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
+import { FileService } from '../file/file.service';
 import { CreatePropertyDto } from './dto/create-property.dto';
 import { UpdatePropertyDto } from './dto/update-property.dto';
 import { Property } from './entities/property.entity';
@@ -7,7 +8,10 @@ import { PropertyModule } from './property.module';
 
 @Injectable()
 export class PropertyService {
-  constructor(@InjectModel(Property) private property: typeof Property) {}
+  constructor(
+    @InjectModel(Property) private property: typeof Property,
+    private fileService: FileService,
+  ) {}
   create(createPropertyDto: CreatePropertyDto) {
     return this.property.create(createPropertyDto);
   }

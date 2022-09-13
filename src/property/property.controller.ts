@@ -13,21 +13,27 @@ import { PropertyService } from './property.service';
 import { CreatePropertyDto } from './dto/create-property.dto';
 import { UpdatePropertyDto } from './dto/update-property.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { FileService } from '../file/file.service';
 
 @Controller('property')
 export class PropertyController {
-  constructor(private readonly propertyService: PropertyService) {}
+  constructor(
+    private readonly propertyService: PropertyService,
+    private fileService: FileService,
+  ) {}
 
   @Post()
-  create(@Body() createPropertyDto: CreatePropertyDto) {
-    return this.propertyService.create(createPropertyDto);
-  }
-
-  @Post('upload')
   @UseInterceptors(FileInterceptor('file'))
-  uploadFile(@UploadedFile() file, @Body() req) {
-    console.log(file);
-    return 1;
+  async create(
+    @Body() createPropertyDto: CreatePropertyDto,
+    @UploadedFile() file,
+  ) {
+    const property = await this.propertyService.create(createPropertyDto);
+    console.log(property);
+    if (property) {
+      await this.fileService.upload(file, 'property', property.id);
+    }
+    return property;
   }
 
   @Get()

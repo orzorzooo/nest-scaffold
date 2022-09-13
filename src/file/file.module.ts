@@ -8,7 +8,7 @@ import * as nuid from 'nuid'; // npm i nuid
 import * as fs from 'fs';
 import { File } from './entities/file.entity';
 
-@Global()
+// @Global()
 @Module({
   imports: [
     MulterModule.register({
@@ -36,5 +36,6 @@ import { File } from './entities/file.entity';
   ],
   controllers: [FileController],
   providers: [FileService],
+  exports: [FileService],
 })
 export class FileModule {}

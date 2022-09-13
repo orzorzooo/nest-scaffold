@@ -6,12 +6,22 @@ import { diskStorage } from 'multer';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { Property } from './entities/property.entity';
 import * as nuid from 'nuid'; // npm i nuid
+import * as fs from 'fs';
+import { FileModule } from '../file/file.module';
+// import { FileService } from 'src/file/file.service';
 @Module({
   imports: [
+    FileModule,
     SequelizeModule.forFeature([Property]),
     MulterModule.register({
       storage: diskStorage({
-        destination: `uploads/property`,
+        destination: function (req, file, callback) {
+          // req 帶 type (多態關聯用的，放到type相關路徑下)
+          const { type, path } = req.body;
+          const filepath = `uploads/property`;
+          fs.mkdirSync(filepath, { recursive: true });
+          return callback(null, filepath);
+        },
         //自定義檔名, 用nuid來處理檔名
         filename(req, file, callback) {
           const filename = `${nuid.next()}.${file.mimetype.split('/')[1]}`;

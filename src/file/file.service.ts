@@ -11,15 +11,14 @@ export class FileService {
     return 'This action adds a new file';
   }
 
-  async upload(req, file) {
+  async upload(file, type = null, fileable_id = null) {
     const createFileData = {
       name: file.filename,
       url: file.path,
       mimetype: `${file.mimetype.split('/')[1]}`,
-      description: req.description,
-      type: req.type,
+      type: type ? type : '',
       user_id: 0,
-      fileable_id: 0,
+      fileable_id,
     };
     const result = await this.file.create(createFileData);
     return result;
