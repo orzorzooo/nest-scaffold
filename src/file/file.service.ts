@@ -48,6 +48,17 @@ export class FileService {
     return `This action returns a #${id} file`;
   }
 
+  find(id: string, type: string) {
+    return this.file.findAll({
+      where: {
+        type,
+        fileable_id: id,
+      },
+      raw: true,
+    });
+    return `This action returns a #${id} file`;
+  }
+
   update(id: number, updateFileDto: UpdateFileDto) {
     return `This action updates a #${id} file`;
   }

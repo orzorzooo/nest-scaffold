@@ -56,8 +56,11 @@ export class PropertyController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.propertyService.findOne(+id);
+  async findOne(@Param('id') id: string) {
+    const files = await this.fileService.find(id, 'property');
+    const property: any = await this.propertyService.findOne(id);
+    property.files = files;
+    return property;
   }
 
   @Patch(':id')
