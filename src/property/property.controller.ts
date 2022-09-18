@@ -64,6 +64,7 @@ export class PropertyController {
   }
 
   @Patch(':id')
+  @UseInterceptors(FilesInterceptor('file'))
   update(
     @Param('id') id: string,
     @Body() updatePropertyDto: UpdatePropertyDto,

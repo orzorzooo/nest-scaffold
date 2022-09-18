@@ -5,7 +5,6 @@ import { FileService } from '../file/file.service';
 import { CreatePropertyDto } from './dto/create-property.dto';
 import { UpdatePropertyDto } from './dto/update-property.dto';
 import { Property } from './entities/property.entity';
-import { PropertyModule } from './property.module';
 
 @Injectable()
 export class PropertyService {
@@ -14,6 +13,7 @@ export class PropertyService {
     private fileService: FileService,
   ) {}
   create(createPropertyDto: CreatePropertyDto) {
+    console.log(createPropertyDto);
     return this.property.create(createPropertyDto);
   }
 
@@ -24,15 +24,26 @@ export class PropertyService {
   }
 
   async findOne(id: string) {
-    return await this.property.findOne({ where: { id }, raw: true });
-    return `This action returns a #${id} property`;
+    const property: any = await this.property.findOne({
+      where: { id },
+      raw: true,
+    });
+    property.price = property.price.split(',');
+    property.spec = property.spec ?? null;
+    return property;
   }
 
   update(id: number, updatePropertyDto: UpdatePropertyDto) {
-    return `This action updates a #${id} property`;
+    console.log(updatePropertyDto);
+    return this.property.update(updatePropertyDto, {
+      where: { id },
+    });
+
+    // return `This action updates a #${id} property`;
   }
 
   remove(id: number) {
-    return `This action removes a #${id} property`;
+    return this.property.destroy({ where: { id } });
+    // return `This action removes a #${id} property`;
   }
 }

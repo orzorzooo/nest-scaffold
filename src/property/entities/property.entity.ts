@@ -10,6 +10,7 @@ import {
   Unique,
   UpdatedAt,
 } from 'sequelize-typescript';
+// import { DataTypes } from 'sequelize/types';
 
 @Table({ timestamps: true })
 export class Property extends Model<Property> {
@@ -29,7 +30,16 @@ export class Property extends Model<Property> {
   description: string;
 
   @Column({ type: DataType.JSON })
-  spec: string;
+  spec: object;
+
+  @Column({})
+  price: string;
+
+  @Column
+  func: string;
+
+  @Column
+  area: string;
 
   @Column
   area_id: number;

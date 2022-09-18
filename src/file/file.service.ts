@@ -11,9 +11,11 @@ export class FileService {
     console.log('file', files);
     try {
       files.forEach(async (file) => {
+        const url = `${file.path}`.replace('uploads/', '');
+        console.log('path', url);
         const createFileData = {
           name: file.filename,
-          url: file.path,
+          url,
           mimetype: `${file.mimetype.split('/')[1]}`,
           type: type ? type : '',
           user_id: 0,
