@@ -65,10 +65,12 @@ export class PropertyController {
 
   @Patch(':id')
   @UseInterceptors(FilesInterceptor('file'))
-  update(
+  async update(
     @Param('id') id: string,
     @Body() updatePropertyDto: UpdatePropertyDto,
+    @UploadedFiles() files,
   ) {
+    const uploadFile = await this.fileService.create(files, 'property', id);
     return this.propertyService.update(+id, updatePropertyDto);
   }
 

@@ -12,6 +12,7 @@ export class PropertyService {
     @InjectModel(Property) private property: typeof Property,
     private fileService: FileService,
   ) {}
+
   create(createPropertyDto: CreatePropertyDto) {
     console.log(createPropertyDto);
     return this.property.create(createPropertyDto);
@@ -28,7 +29,11 @@ export class PropertyService {
       where: { id },
       raw: true,
     });
-    property.price = property.price.split(',');
+
+    // price目前是字串型式, 前端有時後會有問題
+    property.price = property.price.split(',').map((i) => {
+      return parseInt(i);
+    });
     property.spec = property.spec ?? null;
     return property;
   }
