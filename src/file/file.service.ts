@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/sequelize';
 import { CreateFileDto } from './dto/create-file.dto';
 import { UpdateFileDto } from './dto/update-file.dto';
 import { File } from './entities/file.entity';
+import * as fs from 'fs';
 
 @Injectable()
 export class FileService {
@@ -65,7 +66,10 @@ export class FileService {
     return `This action updates a #${id} file`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} file`;
+  async remove(id: number) {
+    const item = await this.file.findOne({ where: { id } });
+    console.log(item);
+    await fs.unlink(`./uploads/${item.url}`, (err) => {});
+    return this.file.destroy({ where: { id } });
   }
 }
