@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
+import { isNotEmpty } from 'class-validator';
 import { where } from 'sequelize/types';
+import { File } from '../file/entities/file.entity';
 import { FileService } from '../file/file.service';
 import { CreatePropertyDto } from './dto/create-property.dto';
 import { UpdatePropertyDto } from './dto/update-property.dto';
@@ -18,10 +20,14 @@ export class PropertyService {
     return this.property.create(createPropertyDto);
   }
 
-  findAll() {
-    return this.property.findAll();
-
-    // return `This action returns all property`;
+  async findAll() {
+    let properties: any = await this.property.findAll({ raw: true });
+    for (let item of properties) {
+      const files = await this.fileService.find(item.id, 'property');
+      console.log(files[0]);
+      item.files = files;
+    }
+    return properties;
   }
 
   async findOne(id: string) {
