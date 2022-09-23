@@ -32,8 +32,11 @@ export class Property extends Model<Property> {
   @Column({ type: DataType.JSON })
   spec: object;
 
-  @Column({})
+  @Column
   price: string;
+
+  @Column({ type: DataType.JSON })
+  priceRange: string;
 
   @Column
   func: string;
@@ -49,6 +52,9 @@ export class Property extends Model<Property> {
 
   @Column
   locate_id: number;
+
+  @Column({ type: DataType.JSON })
+  files: object;
 
   @CreatedAt
   @Column

@@ -22,11 +22,11 @@ export class PropertyService {
 
   async findAll() {
     let properties: any = await this.property.findAll({ raw: true });
-    for (let item of properties) {
-      const files = await this.fileService.find(item.id, 'property');
-      console.log(files[0]);
-      item.files = files;
-    }
+    // for (let item of properties) {
+    //   const files = await this.fileService.find(item.id, 'property');
+    //   console.log(files[0]);
+    //   item.files = files;
+    // }
     return properties;
   }
 
@@ -34,11 +34,6 @@ export class PropertyService {
     const property: any = await this.property.findOne({
       where: { id },
       raw: true,
-    });
-
-    // price目前是字串型式, 前端有時後會有問題
-    property.price = property.price.split(',').map((i) => {
-      return parseInt(i);
     });
     property.spec = property.spec ?? null;
     return property;

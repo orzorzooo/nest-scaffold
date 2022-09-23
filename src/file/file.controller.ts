@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   UseInterceptors,
+  UploadedFiles,
   UploadedFile,
 } from '@nestjs/common';
 import { FileService } from './file.service';
@@ -22,11 +23,12 @@ export class FileController {
     return this.fileService.create(createFileDto);
   }
 
-  @Post('upload')
+  @Post('upload/')
   @UseInterceptors(FileInterceptor('file'))
   uploadFile(@UploadedFile() file, @Body() req) {
-    // console.log(file, req.type);
-    return this.fileService.upload(req, file);
+    console.log(file, req.type);
+    return this.fileService.upload(file, req.type);
+    // return this.fileService.upload(req, file);
     return file;
   }
 

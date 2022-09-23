@@ -31,10 +31,11 @@ export class FileService {
   }
 
   async upload(file, type = null, fileable_id = null) {
+    console.log('createFile', file);
     const createFileData = {
       name: file.filename,
       url: file.path,
-      mimetype: `${file.mimetype.split('/')[1]}`,
+      // mimetype: `${file.mimetype.split('/')[1]}`,
       type: type ? type : '',
       user_id: 0,
       fileable_id,
