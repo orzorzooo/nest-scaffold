@@ -8,6 +8,7 @@ import { PropertyModule } from './property/property.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 // import { File } from './file/entities/file.entity';
+import { IotModule } from './iot/iot.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { join } from 'path';
       synchronize: true,
     }),
     PropertyModule,
+    IotModule,
   ],
   controllers: [AppController],
   providers: [AppService],
