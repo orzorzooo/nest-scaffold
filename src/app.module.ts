@@ -10,6 +10,7 @@ import { join } from 'path';
 // import { File } from './file/entities/file.entity';
 import { IotModule } from './iot/iot.module';
 import { ProductModule } from './product/product.module';
+import { CompanyModule } from './company/company.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { ProductModule } from './product/product.module';
     PropertyModule,
     IotModule,
     ProductModule,
+    CompanyModule,
   ],
   controllers: [AppController],
   providers: [AppService],
