@@ -9,6 +9,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 // import { File } from './file/entities/file.entity';
 import { IotModule } from './iot/iot.module';
+import { ProductModule } from './product/product.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { IotModule } from './iot/iot.module';
     }),
     PropertyModule,
     IotModule,
+    ProductModule,
   ],
   controllers: [AppController],
   providers: [AppService],
