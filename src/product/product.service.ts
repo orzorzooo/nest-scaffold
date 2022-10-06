@@ -24,7 +24,6 @@ export class ProductService {
 
   update(id: number, updateProductDto: UpdateProductDto) {
     return this.product.update(updateProductDto, { where: { id } });
-    return `This action updates a #${id} product`;
   }
 
   remove(id: number) {
