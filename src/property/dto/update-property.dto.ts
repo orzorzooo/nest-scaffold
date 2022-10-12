@@ -4,7 +4,7 @@ import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 export class UpdatePropertyDto extends PartialType(CreatePropertyDto) {
   @IsString()
-  @IsNotEmpty()
+  // @IsNotEmpty()
   name: string;
 
   @IsString()

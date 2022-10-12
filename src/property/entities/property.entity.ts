@@ -90,7 +90,7 @@ export class Property extends Model<Property> {
 
   @Comment('產權登記')
   @Column
-  property_right: string; //產權登記
+  property_right: boolean; //產權登記
 
   @Comment('建物面積')
   @Column
