@@ -39,13 +39,16 @@ export class PropertyService {
     return property;
   }
 
-  update(id: number, updatePropertyDto: UpdatePropertyDto) {
+  async update(id: number, updatePropertyDto: UpdatePropertyDto) {
     console.log(updatePropertyDto);
-    return this.property.update(updatePropertyDto, {
+    const result = await this.property.update(updatePropertyDto, {
       where: { id },
     });
-
-    // return `This action updates a #${id} property`;
+    if (result) {
+      return updatePropertyDto;
+    } else {
+      return 0;
+    }
   }
 
   remove(id: number) {

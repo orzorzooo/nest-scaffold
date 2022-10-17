@@ -26,10 +26,8 @@ export class FileController {
   @Post('upload/')
   @UseInterceptors(FileInterceptor('file'))
   uploadFile(@UploadedFile() file, @Body() req) {
-    console.log(file, req.type);
-    return this.fileService.upload(file, req.type);
-    // return this.fileService.upload(req, file);
-    return file;
+    file.path = file.path.replace('uploads/', '');
+    return this.fileService.upload(file);
   }
 
   @Get()

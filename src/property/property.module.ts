@@ -8,6 +8,7 @@ import { Property } from './entities/property.entity';
 import * as nuid from 'nuid'; // npm i nuid
 import * as fs from 'fs';
 import { FileModule } from '../file/file.module';
+import { join } from 'path';
 // import { FileService } from 'src/file/file.service';
 @Module({
   imports: [
@@ -17,8 +18,8 @@ import { FileModule } from '../file/file.module';
       storage: diskStorage({
         destination: function (req, file, callback) {
           // req 帶 type (多態關聯用的，放到type相關路徑下)
-          const { type, path } = req.body;
-          const filepath = `uploads/property`;
+          // const { type, path } = req.body;
+          const filepath = join(__dirname, '..', '/uploads/property');
           fs.mkdirSync(filepath, { recursive: true });
           return callback(null, filepath);
         },
