@@ -46,7 +46,6 @@ export class UsersController {
     return this.usersService.remove(+id);
   }
 
-  @UseGuards(AuthGuard('jwt'))
   @Get('routes/route')
   getRoutes(@Request() req, @Headers() header) {
     return this.usersService.getRoutes();

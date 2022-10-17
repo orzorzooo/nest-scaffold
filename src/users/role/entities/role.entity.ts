@@ -12,7 +12,7 @@ import {
 } from 'sequelize-typescript';
 
 @Table({ timestamps: true })
-export class User extends Model<User> {
+export class Role extends Model<Role> {
   @PrimaryKey
   @AutoIncrement
   @Column
@@ -22,23 +22,14 @@ export class User extends Model<User> {
   @Column
   name: string;
 
-  @AllowNull(false)
-  @Unique
-  @Column
-  email: string;
-
-  @AllowNull(false)
-  @Column
-  password: string;
-
-  @Column
-  role_id: number;
-
   @Column({ defaultValue: true })
   isActive: boolean;
 
+  @Column
+  permission_id: number;
+
   @Column({ type: DataType.JSON })
-  config: string;
+  permissions: string;
 
   @CreatedAt
   @Column

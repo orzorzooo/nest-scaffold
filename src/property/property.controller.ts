@@ -10,6 +10,7 @@ import {
   UploadedFile,
   UploadedFiles,
   UseGuards,
+  SetMetadata,
 } from '@nestjs/common';
 import { PropertyService } from './property.service';
 import { CreatePropertyDto } from './dto/create-property.dto';
@@ -18,6 +19,7 @@ import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import { FileService } from '../file/file.service';
 import { JwtAuthGuard } from '../users/auth/jwt-auth.guard';
 import { Public } from '../users/auth/public.decorator';
+import { RoleGuard } from '../users/auth/role.guard';
 
 @Controller('property')
 export class PropertyController {
@@ -54,6 +56,8 @@ export class PropertyController {
   }
 
   @Get()
+  @UseGuards(RoleGuard)
+  @SetMetadata('admin', true)
   findAll() {
     return this.propertyService.findAll();
   }

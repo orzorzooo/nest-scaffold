@@ -6,11 +6,13 @@ import { User } from './entities/user.entity';
 import * as bcrypt from 'bcryptjs';
 import { where } from 'sequelize/types';
 import { JwtService } from '@nestjs/jwt';
+import { Role } from './role/entities/role.entity';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectModel(User) private user: typeof User,
+    @InjectModel(Role) private role: typeof Role,
     private readonly jwtService: JwtService,
   ) {}
   async create(createUserDto: CreateUserDto) {
@@ -70,8 +72,11 @@ export class UsersService {
   }
 
   async update(id: number, updateUserDto: UpdateUserDto) {
-    const password = updateUserDto.password;
-    updateUserDto.password = bcrypt.hashSync(password, 10);
+    if (updateUserDto.password) {
+      const password = updateUserDto.password;
+      updateUserDto.password = bcrypt.hashSync(password, 10);
+    }
+
     try {
       const user = await this.user.update(updateUserDto, { where: { id } });
       return user[0];
@@ -84,10 +89,18 @@ export class UsersService {
     return this.user.findAll();
   }
 
-  findOne(id: number) {
-    return this.user.findOne({
+  async findOne(id: number) {
+    const user: any = await this.user.findOne({
       where: { id },
+      raw: true,
     });
+    const role = await this.role.findOne({
+      where: {
+        id: user.role_id,
+      },
+    });
+    user.role = role;
+    return user;
   }
 
   findByName(name: string) {

@@ -7,6 +7,8 @@ import { LocalStrategy } from './auth/local.strategy';
 import { JwtModule, JwtService } from '@nestjs/jwt';
 import { ConfigModule } from '@nestjs/config';
 import { JwtStrategy } from './auth/jwt.strategy';
+import { RoleModule } from './role/role.module';
+import { Role } from './role/entities/role.entity';
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -17,6 +19,7 @@ import { JwtStrategy } from './auth/jwt.strategy';
       },
     }),
     SequelizeModule.forFeature([User]),
+    RoleModule,
   ],
   controllers: [UsersController],
   providers: [UsersService, LocalStrategy, JwtStrategy],
