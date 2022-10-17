@@ -5,10 +5,40 @@ import { UpdateFileDto } from './dto/update-file.dto';
 import { File } from './entities/file.entity';
 import * as fs from 'fs';
 import { join } from 'path';
+import { Cron } from '@nestjs/schedule';
+
+const cronActive = false;
 
 @Injectable()
 export class FileService {
   constructor(@InjectModel(File) private file: typeof File) {}
+
+  @Cron('45 * * * * *')
+  async removeFileWithoutRelationship() {
+    const files = await this.file.findAll({
+      where: {
+        fileable_id: null,
+      },
+      raw: true,
+    });
+    if (cronActive) {
+      files.forEach(async (ele) => {
+        console.log(ele);
+        const filePath = join(__dirname, '../..', `/uploads/${ele.url}`);
+        const unlinkFile = await fs.unlink(filePath, (err) => {
+          if (err) {
+            console.log(err);
+          }
+        });
+        console.log('delete file:', filePath);
+        const removedData = await this.file.destroy({
+          where: { id: ele.id },
+        });
+        console.log('remove data:', removedData);
+      });
+    }
+  }
+
   async create(files, type = null, fileable_id = null) {
     console.log('file', files);
     try {
@@ -32,7 +62,7 @@ export class FileService {
   }
 
   async upload(file, type = null, fileable_id = null) {
-    // console.log('createFile', file);
+    console.log('createFile', file);
     const createFileData = {
       name: file.filename,
       url: file.path,
@@ -71,18 +101,14 @@ export class FileService {
   }
 
   async remove(id: number) {
-    console.log(id);
     const item = await this.file.findOne({ where: { id } });
-    console.log('file', item);
     const filePath = join(__dirname, '../..', `/uploads/${item.url}`);
-    console.log(filePath, __dirname);
 
     const unlinkFile = await fs.unlink(filePath, (err) => {
       if (err) {
         console.log(err);
       }
-      console.log('unlink file!');
     });
-    // return this.file.destroy({ where: { id } });
+    return this.file.destroy({ where: { id } });
   }
 }
