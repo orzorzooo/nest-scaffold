@@ -11,9 +11,11 @@ import { join } from 'path';
 import { IotModule } from './iot/iot.module';
 import { ProductModule } from './product/product.module';
 import { CompanyModule } from './company/company.module';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
+    ScheduleModule.forRoot(),
     ConfigModule.forRoot(),
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', '/uploads'),
