@@ -12,6 +12,8 @@ import { IotModule } from './iot/iot.module';
 import { ProductModule } from './product/product.module';
 import { CompanyModule } from './company/company.module';
 import { ScheduleModule } from '@nestjs/schedule';
+import { APP_GUARD } from '@nestjs/core';
+import { JwtAuthGuard } from './users/auth/jwt-auth.guard';
 
 @Module({
   imports: [
@@ -39,6 +41,7 @@ import { ScheduleModule } from '@nestjs/schedule';
     CompanyModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, { provide: APP_GUARD, useClass: JwtAuthGuard }],
+  // providers: [AppService],
 })
 export class AppModule {}

@@ -9,6 +9,8 @@ import * as nuid from 'nuid'; // npm i nuid
 import * as fs from 'fs';
 import { FileModule } from '../file/file.module';
 import { join } from 'path';
+import { AuthGuard } from '@nestjs/passport';
+import { JwtAuthGuard } from '../users/auth/jwt-auth.guard';
 // import { FileService } from 'src/file/file.service';
 @Module({
   imports: [

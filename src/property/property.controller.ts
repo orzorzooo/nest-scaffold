@@ -9,12 +9,15 @@ import {
   UseInterceptors,
   UploadedFile,
   UploadedFiles,
+  UseGuards,
 } from '@nestjs/common';
 import { PropertyService } from './property.service';
 import { CreatePropertyDto } from './dto/create-property.dto';
 import { UpdatePropertyDto } from './dto/update-property.dto';
 import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import { FileService } from '../file/file.service';
+import { JwtAuthGuard } from '../users/auth/jwt-auth.guard';
+import { Public } from '../users/auth/public.decorator';
 
 @Controller('property')
 export class PropertyController {
