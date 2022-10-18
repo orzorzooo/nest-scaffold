@@ -19,7 +19,7 @@ import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import { FileService } from '../file/file.service';
 import { JwtAuthGuard } from '../users/auth/jwt-auth.guard';
 import { Public } from '../users/auth/public.decorator';
-import { RoleGuard } from '../users/auth/role.guard';
+// import { RoleGuard } from '../users/auth/role.guard';
 
 @Controller('property')
 export class PropertyController {
@@ -56,7 +56,7 @@ export class PropertyController {
   }
 
   @Get()
-  @UseGuards(RoleGuard)
+  // @UseGuards(RoleGuard)
   @SetMetadata('admin', true)
   findAll() {
     return this.propertyService.findAll();

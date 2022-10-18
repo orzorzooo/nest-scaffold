@@ -30,7 +30,9 @@ export class UsersService {
 
   // 驗證使用者
   async validateUser(name: string, password: string) {
-    const user = await this.user.findOne({ where: { name } });
+    const user: any = await this.user.findOne({ where: { name } });
+    const role = await this.role.findOne({ where: { id: user.role_id } });
+    user.roles = role.name;
 
     // 避免找不到該使用者帳號的情形
     if (!user) return null;
@@ -47,7 +49,7 @@ export class UsersService {
           email,
           avatar: '',
           position: '',
-          roles: [],
+          roles: role.name,
           permissions: [],
           routes: [],
         },
@@ -58,15 +60,16 @@ export class UsersService {
   }
 
   async getRoutes() {
-    return [
-      // {
-      //   router: 'root',
-      // },
-    ];
+    return [];
   }
 
   async generateJWTToken(user: any) {
-    const payload = { username: user.name, sub: user.id };
+    const payload = {
+      username: user.name,
+      sub: user.id,
+      roles: user.roles,
+      role_id: user.role_id,
+    };
     const token = this.jwtService.sign(payload);
     return token;
   }
