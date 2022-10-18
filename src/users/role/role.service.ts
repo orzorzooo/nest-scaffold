@@ -10,7 +10,6 @@ export class RoleService {
 
   create(createRoleDto: CreateRoleDto) {
     return this.role.create(createRoleDto);
-    return 'This action adds a new role';
   }
 
   findAll() {
@@ -18,14 +17,17 @@ export class RoleService {
   }
 
   findOne(id: number) {
+    return this.role.findOne({ where: { id } });
     return `This action returns a #${id} role`;
   }
 
   update(id: number, updateRoleDto: UpdateRoleDto) {
+    return this.role.update(updateRoleDto, { where: { id } });
     return `This action updates a #${id} role`;
   }
 
   remove(id: number) {
+    return this.role.destroy({ where: { id } });
     return `This action removes a #${id} role`;
   }
 }
