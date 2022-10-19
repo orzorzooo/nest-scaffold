@@ -1,15 +1,18 @@
 import {
   AllowNull,
   AutoIncrement,
+  BelongsTo,
   Column,
   CreatedAt,
   DataType,
+  HasMany,
   Model,
   PrimaryKey,
   Table,
   Unique,
   UpdatedAt,
 } from 'sequelize-typescript';
+import { Role } from '../role/entities/role.entity';
 
 @Table({ timestamps: true })
 export class User extends Model<User> {
@@ -39,6 +42,9 @@ export class User extends Model<User> {
 
   @Column({ type: DataType.JSON })
   config: string;
+
+  @BelongsTo(() => Role, 'role_id')
+  roles: Role[];
 
   @CreatedAt
   @Column

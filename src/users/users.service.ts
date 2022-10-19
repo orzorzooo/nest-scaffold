@@ -4,7 +4,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import * as bcrypt from 'bcryptjs';
-import { where } from 'sequelize/types';
+import { HasMany, where } from 'sequelize/types';
 import { JwtService } from '@nestjs/jwt';
 import { Role } from './role/entities/role.entity';
 
@@ -30,9 +30,11 @@ export class UsersService {
 
   // 驗證使用者
   async validateUser(name: string, password: string) {
-    const user: any = await this.user.findOne({ where: { name } });
-    const role = await this.role.findOne({ where: { id: user.role_id } });
-    user.roles = role.name;
+    const user: any = await this.user.findOne({
+      where: { name },
+      include: [{ model: Role, attributes: ['name'] }],
+    });
+    // const role = await this.role.findOne({ where: { id: user.role_id } });
 
     // 避免找不到該使用者帳號的情形
     if (!user) return null;
@@ -41,7 +43,7 @@ export class UsersService {
     const isMatch = await bcrypt.compare(password, user.password ?? '');
     if (isMatch) {
       const token = await this.generateJWTToken(user);
-      const { password, name, email } = user;
+      const { password, name, email, roles } = user;
       return {
         code: 1,
         user: {
@@ -49,7 +51,7 @@ export class UsersService {
           email,
           avatar: '',
           position: '',
-          roles: role.name,
+          roles: roles.name,
           permissions: [],
           routes: [],
         },
@@ -89,21 +91,25 @@ export class UsersService {
   }
 
   findAll() {
-    return this.user.findAll();
+    return this.user.findAll({
+      include: [{ model: Role, attributes: ['name'] }],
+    });
   }
 
   async findOne(id: number) {
     const user: any = await this.user.findOne({
       where: { id },
+      include: [
+        {
+          model: Role,
+          attributes: ['name'],
+        },
+      ],
       raw: true,
     });
-    const role = await this.role.findOne({
-      where: {
-        id: user.role_id,
-      },
-    });
-    user.role = role;
-    return user;
+    const { password, ...userData } = user;
+
+    return userData;
   }
 
   findByName(name: string) {
