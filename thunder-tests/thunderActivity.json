@@ -36,5 +36,19 @@
       "form": []
     },
     "tests": []
+  },
+  {
+    "_id": "99f78bb4-b55e-4071-a468-e708724ce22b",
+    "colId": "history",
+    "containerId": "",
+    "name": "https://api.nlsc.gov.tw/other/MarkBufferAnlys/bus/120/28/100",
+    "url": "https://api.nlsc.gov.tw/other/MarkBufferAnlys/bus/120/28/100",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2022-10-24T08:50:56.988Z",
+    "modified": "2022-10-24T08:50:57.100Z",
+    "headers": [],
+    "params": [],
+    "tests": []
   }
 ]

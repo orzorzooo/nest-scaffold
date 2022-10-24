@@ -35,5 +35,28 @@
       "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InBhbmRhIiwic3ViIjoxLCJyb2xlcyI6eyJuYW1lIjoiYWRtaW4ifSwicm9sZV9pZCI6MSwiaWF0IjoxNjY2MjcwMDgxLCJleHAiOjE2NjYyNzE4ODF9.bkM0Gn5JKHlIskNMGx-GlKbdAX7x39CJ-QLW63Kis2E"
     },
     "tests": []
+  },
+  {
+    "_id": "12fae724-a88c-4e03-9037-b77766a79d58",
+    "colId": "d5d1c46b-7cfd-4d10-8aa8-26d2b428ec19",
+    "containerId": "",
+    "name": "passNISC",
+    "url": "{{baseurl}}/map/nisc/bus",
+    "method": "GET",
+    "sortNum": 10000,
+    "created": "2022-10-24T08:06:41.292Z",
+    "modified": "2022-10-24T08:54:56.174Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"lon\":120.23303814271932,\n  \"lat\":22.9911067,\n  \"radius\":100\n}",
+      "form": []
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InBhbmRhIiwic3ViIjoxLCJyb2xlcyI6eyJuYW1lIjoiYWRtaW4ifSwicm9sZV9pZCI6MSwiaWF0IjoxNjY2NjAwNzU2LCJleHAiOjE2NjY2MDI1NTZ9.ivVntrpaAErhJHorJdOmetBj9sKo2_YRmxP403Etrik"
+    },
+    "tests": []
   }
 ]
