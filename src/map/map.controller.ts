@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { MapService } from './map.service';
 import { CreateMapDto } from './dto/create-map.dto';
@@ -41,8 +42,7 @@ export class MapController {
   }
 
   @Get('/nisc/bus')
-  passNISC(@Body() { lon, lat, radius }) {
-    return { lon, lat };
+  passNISC(@Query() { lon = 0, lat = 0, radius = 1000 }) {
     return this.mapService.passNISC({ lon, lat, radius });
   }
 }

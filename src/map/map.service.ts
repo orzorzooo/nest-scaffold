@@ -1,9 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateMapDto } from './dto/create-map.dto';
 import { UpdateMapDto } from './dto/update-map.dto';
-import axios, { AxiosResponse } from 'axios';
 import { HttpService } from '@nestjs/axios';
-import { Observable } from 'rxjs';
 @Injectable()
 export class MapService {
   constructor(private readonly http: HttpService) {}
@@ -29,11 +27,7 @@ export class MapService {
 
   async passNISC({ lon, lat, radius }): Promise<any> {
     const url = `https://api.nlsc.gov.tw/other/MarkBufferAnlys/bus/${lon}/${lat}/${radius}`;
-    console.log(url);
     const res = await this.http.axiosRef.get(url);
     return res.data;
-    // return this.http.axiosRef.get(
-    //   `https://api.nlsc.gov.tw/other/MarkBufferAnlys/bus/${lon}/${lat}/${radius}`,
-    // );
   }
 }
