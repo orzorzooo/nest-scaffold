@@ -45,4 +45,9 @@ export class MapController {
   passNISC(@Query() { lon = 0, lat = 0, radius = 1000 }) {
     return this.mapService.passNISC({ lon, lat, radius });
   }
+
+  @Get('/nisc/v2')
+  passNISC_v2(@Query() { type = 'bus', lon = 0, lat = 0, radius = 1000 }) {
+    return this.mapService.passNISC_v2({ type, lon, lat, radius });
+  }
 }

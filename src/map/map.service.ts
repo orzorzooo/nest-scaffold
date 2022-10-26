@@ -30,4 +30,10 @@ export class MapService {
     const res = await this.http.axiosRef.get(url);
     return res.data;
   }
+
+  async passNISC_v2({ type, lon, lat, radius }): Promise<any> {
+    const url = `https://api.nlsc.gov.tw/other/MarkBufferAnlys/${type}/${lon}/${lat}/${radius}`;
+    const res = await this.http.axiosRef.get(url);
+    return res.data;
+  }
 }
