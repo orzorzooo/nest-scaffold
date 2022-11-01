@@ -56,6 +56,7 @@ export class PropertyController {
   }
 
   @Get()
+  @Public()
   // @UseGuards(RoleGuard)
   @SetMetadata('admin', true)
   findAll() {
@@ -63,6 +64,7 @@ export class PropertyController {
   }
 
   @Get(':id')
+  @Public()
   async findOne(@Param('id') id: string) {
     // const files = await this.fileService.find(id, 'property');
     const property: any = await this.propertyService.findOne(id);
